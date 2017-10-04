@@ -2,6 +2,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson4.task1.abs
 
 /**
  * Пример
@@ -57,7 +58,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
  */
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
+                       rookX2: Int, rookY2: Int): Int =  if ((kingX != rookX1) && (kingX != rookX2) && (kingY != rookY1) && (kingY != rookY2)) 0
+else if ((kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2)) 1
+else if ((kingX == rookX2 || kingY == rookY2)  && (kingX != rookX1 && kingY != rookY1)) 2
+else 3
+
 
 /**
  * Простая
@@ -71,7 +76,14 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+                          bishopX: Int, bishopY: Int): Int  {
+    val DCoordX: Int = Math.abs( bishopX - kingX )
+    val DCoordY: Int  = Math.abs( bishopY - kingY )
+    if ( DCoordX != DCoordY && kingX != rookX && kingY != rookY) return 0
+    else  if(( kingX == rookX || kingY == rookY) && ( DCoordX != DCoordY ))return 1
+    else if( DCoordX == DCoordY  && kingX != rookX && kingY != rookY  ) return 2
+    else return 3
+}
 
 /**
  * Простая
@@ -91,4 +103,27 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int  {
+    val AB: Int = b - a
+    val CD: Int = d - c
+    val AD: Int = d - a
+    val CB: Int = b - c
+    if (a < c)
+        if (d < b) return CD
+        else if (d >= b)
+            if (b < c) return -1
+            else if (b > c) return CB
+            else return 0
+        else return -1
+    else if (a > c)
+        if (a < d)
+            if (b >= d) return AD
+            else return AB
+        else if (a > d) return -1
+        else return 0
+    else
+        if (b > d) return CD
+        else if (b < d) return AB
+        else return AB
+
+}

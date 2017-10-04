@@ -61,7 +61,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = (hours * 3600) + (min
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
-        (((sagenes * 3) + (arshins * 16) + vershoks) * 4.445) / 100
+        ((vershoks*0.04445)+(arshins*16*0.04445)+(sagenes*48*0.04445))
 
 /**
  * Тривиальная
@@ -69,7 +69,8 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(grad: Int, min: Int, sec: Int): Double = (grad + min / 60 + sec / 360) * PI / 180
+fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
+        grad * PI / 180+ min * PI / (180 * 60) + sec * PI / (180 * 60 * 60)
 
 /**
  * Тривиальная
@@ -96,8 +97,7 @@ fun thirdDigit(number: Int): Int = (number / 100) % 10
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
-        ((hoursArrive * 60) + minutesArrive) - ((hoursDepart * 60) + minutesArrive)
-
+        (hoursArrive *60 + minutesArrive) - ( hoursDepart * 60 + minutesDepart )
 /**
  * Простая
  *
@@ -105,12 +105,12 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = initial + ( initial * sqr( percent.toDouble() / 100 ))
-
+fun accountInThreeYears(initial: Int, percent: Int): Double =
+        initial * pow(1 + percent.toDouble()/100, 3.toDouble())
 /**
  * Простая
  *
  * Пользователь задает целое трехзначное число (например, 478).
  *Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = ((number / 100)*100)+ (((number % 100)/10)*10) + ( number % 10)
+fun numberRevert(number: Int): Int = ((number % 10) * 100) + ((number % 100 ) / 10) *10  + (number / 100)
