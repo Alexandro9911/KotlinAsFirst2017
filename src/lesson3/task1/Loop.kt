@@ -70,7 +70,15 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = if (n <= 2) 1 else fib(n - 1) + fib(n - 2)
+fun fib(n: Int): Int {
+    var a = 1
+    var b = 0
+     for (i in  2..n) {
+         a = a + b
+         b = a - b
+    }
+    return a
+}
 
 /**
  * Простая
@@ -86,12 +94,12 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-     var m = 2
-    for ( k in 2..n) {
-        if (n % k == 0) break
+    var m = 2
+    for (i in 2..n) {
+        if (n % i == 0)  break
         m++
     }
-    return m
+      return m
 }
 
 /**
@@ -159,7 +167,24 @@ fun revert(n: Int): Int = TODO()
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    val a = n.toString()
+    val long = a.length
+    var mid = 0
+    if (long == 1) return  true
+    else {
+        if (long / 2 == 0) {
+            mid = long / 2
+                           }
+        else
+        {
+                mid = (long - 1) / 2
+        }
+        for (i in 0..mid)
+            if (a[i] != a[long - 1 - i]) return false
+         }
+    return true
+}
 
 /**
  * Средняя
@@ -167,7 +192,18 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val a = n.toString()
+    val long = a.length
+    val first = a.first()
+    var k = 0
+    for (i in 0..long - 1) {
+        if (first == a[i])
+            k++
+    }
+    if (k == long ) return false
+    else return true
+}
 
 /**
  * Сложная
@@ -178,17 +214,17 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  */
 fun squareSequenceDigit(n: Int): Int {
     var  J  = 0
-    var Sq  = 0 // сам квадрат числа
-    var SqStr = "" // строка квадратов
-    var All = 0 // длина ряда квадратов
-        while (All <= n - 1  ) {
-            J=J+1
-            Sq = J * J
-            SqStr = Sq.toString()
-            All += SqStr.length
+    var square  = 0 // сам квадрат числа
+    var squareStr = "" // строка квадратов
+    var string = 0 // длина ряда квадратов
+        while (string <= n - 1  ) {
+            J = J + 1
+            square = J * J
+            squareStr = square.toString()
+            string += squareStr.length
         }
-            J = SqStr.length - (All - n) -1
-            return SqStr[J].toString().toInt()
+            J = squareStr.length - (string - n) -1
+            return squareStr[J].toString().toInt()
 
 }
 

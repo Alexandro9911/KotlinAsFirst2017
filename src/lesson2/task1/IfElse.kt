@@ -56,13 +56,16 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-fun whichRookThreatens(kingX: Int, kingY: Int,
-                       rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int =  if ((kingX != rookX1) && (kingX != rookX2) && (kingY != rookY1) && (kingY != rookY2)) 0
-else if ((kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2)) 1
-else if ((kingX == rookX2 || kingY == rookY2)  && (kingX != rookX1 && kingY != rookY1)) 2
-else 3
-
+fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int {
+     val Attack1 = (kingX == rookX1) || (kingY == rookY1)
+    val Attack2 = (kingX == rookX2) || (kingY == rookY2)
+    when {
+        Attack1 && Attack2 -> return 3
+        Attack1 && !Attack2 -> return 1
+        Attack2 && !Attack1 -> return 2
+        else -> return 0
+    }
+}
 
 /**
  * Простая
@@ -76,15 +79,18 @@ else 3
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int  {
-    val DCoordX: Int = Math.abs( bishopX - kingX )
-    val DCoordY: Int  = Math.abs( bishopY - kingY )
-    if ( DCoordX != DCoordY && kingX != rookX && kingY != rookY) return 0
-    else  if(( kingX == rookX || kingY == rookY) && ( DCoordX != DCoordY ))return 1
-    else if( DCoordX == DCoordY  && kingX != rookX && kingY != rookY  ) return 2
-    else return 3
+                          bishopX: Int, bishopY: Int): Int {
+    val CoordX = Math.abs(bishopX - kingX)
+    val CoordY = Math.abs(bishopY - kingY)
+    val Attack1 = (kingX == rookX) || (kingY == rookY)
+    val Attack2 = (CoordX == CoordY)
+    when {
+        !Attack1 && !Attack2 -> return 0
+        Attack1 && !Attack2 -> return 1
+        Attack2 && !Attack1 -> return 2
+        else -> return 3
+    }
 }
-
 /**
  * Простая
  *
@@ -103,27 +109,19 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int  {
-    val AB: Int = b - a
-    val CD: Int = d - c
-    val AD: Int = d - a
-    val CB: Int = b - c
-    if (a < c)
-        if (d < b) return CD
-        else if (d >= b)
-            if (b < c) return -1
-            else if (b > c) return CB
-            else return 0
-        else return -1
-    else if (a > c)
-        if (a < d)
-            if (b >= d) return AD
-            else return AB
-        else if (a > d) return -1
-        else return 0
-    else
-        if (b > d) return CD
-        else if (b < d) return AB
-        else return AB
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val ab = b - a
+    val cd = d - c
+    val ad = d - a
+    val cb = b - c
+    when {
+        b >= c && c > a && d > b -> return cb
+        d >= a && a > c && d < b -> return ad
+        a < c && d < b && a < d -> return cd
+        c < a && b < d -> return ab
+        a==c && b==d -> return ab
 
+ else -> return -1
+    }
 }
+
