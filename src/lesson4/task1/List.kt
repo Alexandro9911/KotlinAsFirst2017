@@ -113,7 +113,6 @@ fun abs(v: List<Double>): Double {
      var  answ = 0.0
     for( i in v )
         answ =  answ + sqr(i)
-
     return Math.sqrt(answ)
 
 }
