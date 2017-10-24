@@ -165,11 +165,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  */
 fun polynom(p: List<Double>, x: Double): Double {
     var answ = 0.0
-    val Long = p.count()
-    if ( Long == 0 ) return 0.0
+    val length = p.count()
+    if (length == 0) return 0.0 // зачем эта проверка
         else
-        for( i in 0.. Long-1){
-        answ += p[i] * pow(x, i.toDouble() )
+        for(i in 0..length - 1){
+        answ += p[i] * pow(x, i.toDouble())
         }
         return answ
 }
@@ -207,7 +207,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  */
 fun factorize(n: Int): List<Int>  {
     var number = n
-    val answ: MutableList<Int> = mutableListOf()
+    val answ: MutableList<Int> = mutableListOf() // лишний тип у переменной
     for (i in 2..sqrt(n.toDouble()).toInt() - 1)  // математическое округление?
         while (number % i == 0) {
             answ.add(i)
