@@ -94,21 +94,20 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var m = 2
+    var m = 2 // зачем эта м ? и как это сделать? по сути и
     for (i in 2..n) {
-        if (n % i == 0)  break
-        m++
+        if (n % i == 0) break
+          m++
     }
-      return m
+    return m
 }
-
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var m = n
+    var m = n   // то же что и выше
     for ( k in n downTo 2) {
         if (n % k == 0 && n > k) break
         m= m-1
@@ -169,22 +168,20 @@ fun revert(n: Int): Int = TODO()
  */
 fun isPalindrome(n: Int): Boolean {
     val a = n.toString()
-    val long = a.length
+    val length = a.length
     var mid = 0
-    if (long == 1) return  true
-    else {
-        if (long / 2 == 0) {
-            mid = long / 2
-                           }
+        if (length == 1) return true
         else
-        {
-                mid = (long - 1) / 2
-        }
-        for (i in 0..mid)
-            if (a[i] != a[long - 1 - i]) return false
-         }
-    return true
+            if (length / 2 == 0)
+                mid = length / 2
+            else
+                mid = (length - 1) / 2
+        for (i in 0..mid)       // надо избавиться  от иф как???? оно же ту важное
+            if (a[i] != a[length - 1 - i]) return false
+return true
 }
+
+
 
 /**
  * Средняя
@@ -194,17 +191,16 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     val a = n.toString()
-    val long = a.length
+    val length = a.length     //  убрать к
     val first = a.first()
     var k = 0
-    for (i in 0..long - 1) {
+    for (i in 0..length - 1) {
         if (first == a[i])
             k++
     }
-    if (k == long ) return false
+    if (k == length) return false
     else return true
 }
-
 /**
  * Сложная
  *
@@ -213,17 +209,17 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var  J  = 0
-    var square  = 0 // сам квадрат числа
+    var  J = 0
+    var square = 0 // сам квадрат числа
     var squareStr = "" // строка квадратов
-    var string = 0 // длина ряда квадратов
-        while (string <= n - 1  ) {
+    var length = 0 // длина ряда квадратов
+        while (length <= n - 1  ) {
             J = J + 1
             square = J * J
             squareStr = square.toString()
-            string += squareStr.length
+            length += squareStr.length
         }
-            J = squareStr.length - (string - n) -1
+            J = squareStr.length - (length - n) - 1
             return squareStr[J].toString().toInt()
 
 }

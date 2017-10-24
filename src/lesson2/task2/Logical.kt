@@ -22,7 +22,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
 fun isNumberHappy(number: Int): Boolean  {
     val ab = (number / 1000) + ((number / 100) % 10)
     val cd = ((number % 100) / 10 ) + (number % 10)
-    return  ( ab == cd )
+    return ( ab == cd )
 }
 
 /**
@@ -33,9 +33,9 @@ fun isNumberHappy(number: Int): Boolean  {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean  {
-    val DCoordX = abs(x2 - x1)
-    val DCoordY = abs(y2 - y1)
-    return  ((DCoordX == DCoordY) || (x1==x2) || (y1 == y2))
+    val coordX = abs(x2 - x1)
+    val coordY = abs(y2 - y1)
+    return ((coordX == coordY) || (x1 == x2) || (y1 == y2))
 }
 
 /**
@@ -46,7 +46,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean  {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean =
+                 x2: Double, y2: Double, r2: Double): Boolean = // еще упростить?!?!?!?!??!
     (sqr(x1 - x2) + sqr(y1 - y2) <= sqr(r2) ) && (r2 - sqrt( sqr(x1 - x2) + sqr(y1 - y2)) >= r1)
 
 

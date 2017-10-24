@@ -57,13 +57,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * Считать, что ладьи не могут загораживать друг друга
  */
 fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int {
-     val Attack1 = (kingX == rookX1) || (kingY == rookY1)
-    val Attack2 = (kingX == rookX2) || (kingY == rookY2)
-    when {
-        Attack1 && Attack2 -> return 3
-        Attack1 && !Attack2 -> return 1
-        Attack2 && !Attack1 -> return 2
-        else -> return 0
+    val attack1 = (kingX == rookX1) || (kingY == rookY1) // то же самое что и в следущем
+    val attack2 = (kingX == rookX2) || (kingY == rookY2)
+    return  when {
+        attack1 && attack2 -> 3
+        attack1 && !attack2 -> 1
+        attack2 && !attack1 -> 2
+        else -> 0
     }
 }
 
@@ -80,15 +80,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2:
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val CoordX = Math.abs(bishopX - kingX)
-    val CoordY = Math.abs(bishopY - kingY)
-    val Attack1 = (kingX == rookX) || (kingY == rookY)
-    val Attack2 = (CoordX == CoordY)
-    when {
-        !Attack1 && !Attack2 -> return 0
-        Attack1 && !Attack2 -> return 1
-        Attack2 && !Attack1 -> return 2
-        else -> return 3
+    val coordX = Math.abs(bishopX - kingX)   // что не так тут с форматированием?
+    val coordY = Math.abs(bishopY - kingY)
+    val attack1 = (kingX == rookX) || (kingY == rookY)
+    val attack2 = (coordX == coordY)
+     return when {
+        !attack1 && !attack2 -> 0
+        attack1 && !attack2 -> 1
+        attack2 && !attack1 -> 2
+        else -> 3
     }
 }
 /**
@@ -110,18 +110,17 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val ab = b - a
+    val ab = b - a   // надо проверить в котоеде работает или нет
     val cd = d - c
     val ad = d - a
     val cb = b - c
-    when {
-        (b >= c) && (c > a) && (d > b) -> return cb
-        (d >= a) && (a > c) && (d <= b) -> return ad
-        (a <= c) && (d < b) && (a < d) -> return cd
-        (c <= a) && (b < d) -> return ab
-        (a == c) &&  (b == d) -> return ab
-
- else -> return -1
+   return when {
+        (b >= c) && (c > a) && (d > b) -> cb
+        (d >= a) && (a > c) && (d <= b) -> ad
+        (a <= c) && (d < b) && (a < d) -> cd
+        (c <= a) && (b < d) -> ab
+        (a == c) &&  (b == d) -> ab
+ else -> -1
     }
 }
 
