@@ -110,9 +110,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-     var  answ = 0.0
-    for( i in v )
-        answ =  answ + sqr(i)
+    var answ = 0.0
+    for (i in v)
+        answ = answ + sqr(i)
     return Math.sqrt(answ)
 
 }
@@ -124,7 +124,7 @@ fun abs(v: List<Double>): Double {
  */
 fun mean(list: List<Double>): Double {
     if (list.isEmpty()) return 0.0
-     else return list.sum() / list.count()
+    else return list.sum() / list.count()
 }
 
 /**
@@ -146,11 +146,11 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  */
 fun times(a: List<Double>, b: List<Double>): Double {
     var ab = 0.0 // сам результат
-         if (a.isEmpty() && b.isEmpty()) return 0.0
-            else
-                for ( i in 0..a.count() - 1) {
-                    ab += a[i] * b[i]
-                }
+    if (a.isEmpty() && b.isEmpty()) return 0.0
+    else
+        for (i in 0..a.count() - 1) {
+            ab += a[i] * b[i]
+        }
     return ab
 }
 
@@ -167,11 +167,11 @@ fun polynom(p: List<Double>, x: Double): Double {
     var answ = 0.0
     val length = p.count()
     if (length == 0) return 0.0 // зачем эта проверка
-        else
-        for(i in 0..length - 1){
-        answ += p[i] * pow(x, i.toDouble())
+    else
+        for (i in 0..length - 1) {
+            answ += p[i] * pow(x, i.toDouble())
         }
-        return answ
+    return answ
 }
 
 /**
@@ -205,7 +205,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int>  {
+fun factorize(n: Int): List<Int> {
     var number = n
     val answ: MutableList<Int> = mutableListOf() // лишний тип у переменной
     for (i in 2..sqrt(n.toDouble()).toInt() - 1)  // математическое округление?
