@@ -166,11 +166,9 @@ fun times(a: List<Double>, b: List<Double>): Double {
 fun polynom(p: List<Double>, x: Double): Double {
     var answ = 0.0
     val length = p.count()
-    if (length == 0) return 0.0 // зачем эта проверка
-    else
-        for (i in 0..length - 1) {
-            answ += p[i] * pow(x, i.toDouble())
-        }
+    for (i in 0..length - 1) {
+        answ += p[i] * pow(x, i.toDouble())
+    }
     return answ
 }
 
@@ -185,44 +183,42 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-
     if (list.count() == 0) return list
     else {
         var answ = list[0]
-        var i = 1
-        while (i < list.count()) {
+        for (i in 1..list.count() - 1) {
             answ += list[i]
             list[i] = answ
-            i++
         }
         return list
     }
 }
-/**
- * Средняя
+
+ /**
+  * Средняя
  *
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var number = n
-    val answ: MutableList<Int> = mutableListOf() // лишний тип у переменной
-    for (i in 2..sqrt(n.toDouble()).toInt() - 1)  // математическое округление?
-        while (number % i == 0) {
-            answ.add(i)
-            number /= i
-        }
-    if (number != 1) answ.add(number)
-    return answ
-}
+     var number = n
+     val answ = mutableListOf<Int>()
+     for (i in 2..n)
+         while (number % i == 0) {
+             answ.add(i)
+             number /= i
+         }
+     if (number != 1) answ.add(number)
+     return answ
+ }
 /**
  * Сложная
  *
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString( separator = "*")
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 
 
@@ -233,9 +229,21 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString( separator = "
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val answ = mutableListOf<Int>()
+    var m = n
+    var k = 0
+    while (m != 0) {
+        k = m % base
+        answ.add(k)
+        m /= base
+    }
+    answ.reverse()
+    return answ
+}
 
-/**
+
+ /**
  * Сложная
  *
  * Перевести заданное целое число n >= 0 в систему счисления с основанием 1 < base < 37.

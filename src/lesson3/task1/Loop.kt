@@ -99,14 +99,15 @@ fun minDivisor(n: Int): Int {
     }
     return n
 }
+
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = n / minDivisor(n)
+fun maxDivisor(n: Int): Int = n / minDivisor(n) // так явно проще
 /**{
-    var m = n   // то же что и выше
+var m = n
     for ( k in n downTo 2) {
         if (n % k == 0 && n > k) break
         m= m-1
@@ -156,7 +157,17 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var answ = 0
+    var number = n
+    while (number > 0) {
+        answ *= 10
+        answ += number % 10
+        number /= 10
+    }
+    return answ
+}
+
 
 /**
  * Средняя
@@ -168,19 +179,16 @@ fun revert(n: Int): Int = TODO()
 fun isPalindrome(n: Int): Boolean {
     val a = n.toString()
     val length = a.length
-    var mid = 0
+    val mid = length / 2
     if (length == 1) return true
     else
-        if (length / 2 == 0)
-            mid = length / 2
-        else
-            mid = (length - 1) / 2
-    for (i in 0..mid)       // надо избавиться  от иф как???? оно же ту важное
-        if (a[i] != a[length - 1 - i]) return false
+        for (i in 0..mid)
+            if (a[i] != a[length - 1 - i]) return false
     return true
 }
-
-
+/* или можно проще:
+   fun isPalindrome(n: Int): Boolean = (n == revert(n))
+*/
 
 /**
  * Средняя
@@ -190,7 +198,7 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     val a = n.toString()
-    val length = a.length     //  убрать к
+    val length = a.length
     val first = a.first()
     for (i in 0..length - 1) {
         if (first != a[i]) return true
@@ -207,9 +215,9 @@ fun hasDifferentDigits(n: Int): Boolean {
  */
 fun squareSequenceDigit(n: Int): Int {
     var J = 0
-    var square = 0 // сам квадрат числа
-    var squareStr = "" // строка квадратов
-    var length = 0 // длина ряда квадратов
+    var square = 0
+    var squareStr = ""
+    var length = 0
     while (length <= n - 1) {
         J = J + 1
         square = J * J
@@ -233,7 +241,7 @@ fun fibSequenceDigit(n: Int): Int  {
     var fib = 0
     var fibStr = "" // строка
     var fibLength = 0 // длина ряда
-    while (fibLength < n ) {
+    while (fibLength < n) {
         J++
         fib = fib(J)
         fibStr = fib.toString()
