@@ -105,16 +105,8 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = n / minDivisor(n) // так явно проще
-/**{
-var m = n
-    for ( k in n downTo 2) {
-        if (n % k == 0 && n > k) break
-        m= m-1
-    }
-    return m
-}
-*/
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
+
 /**
  * Простая
  *
@@ -181,7 +173,6 @@ fun isPalindrome(n: Int): Boolean {
     val length = a.length
     val mid = length / 2
     if (length == 1) return true
-    else
         for (i in 0..mid)
             if (a[i] != a[length - 1 - i]) return false
     return true

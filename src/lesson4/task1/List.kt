@@ -147,7 +147,6 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
 fun times(a: List<Double>, b: List<Double>): Double {
     var ab = 0.0 // сам результат
     if (a.isEmpty() && b.isEmpty()) return 0.0
-    else
         for (i in 0..a.count() - 1) {
             ab += a[i] * b[i]
         }
@@ -230,9 +229,8 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val answ = mutableListOf<Int>()
     var m = n
-    var k = 0
     while (m != 0) {
-        k = m % base
+        val k = m % base
         answ.add(k)
         m /= base
     }
