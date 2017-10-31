@@ -3,8 +3,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
-import java.lang.Math.pow
-import java.lang.Math.sqrt
+import java.lang.Math.*
 
  /**
  * Пример
@@ -201,7 +200,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
 fun factorize(n: Int): List<Int> {
      var number = n
      val answ = mutableListOf<Int>()
-     for (i in 2..n)
+     for (i in 2..round(sqrt(n.toDouble())).toInt())
          while (number % i == 0) {
              answ.add(i)
              number /= i
