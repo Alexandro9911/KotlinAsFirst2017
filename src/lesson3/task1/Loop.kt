@@ -173,8 +173,8 @@ fun isPalindrome(n: Int): Boolean {
     val length = a.length
     val mid = length / 2
     if (length == 1) return true
-        for (i in 0..mid)
-            if (a[i] != a[length - 1 - i]) return false
+    for (i in 0..mid)
+        if (a[i] != a[length - 1 - i]) return false
     return true
 }
 /* или можно проще:
