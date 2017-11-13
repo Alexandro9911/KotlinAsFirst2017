@@ -66,16 +66,46 @@ fun main(args: Array<String>) {
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val listMonth = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+            "сентября", "октября", "ноября", "декабря")
+    val parts = str.split(" ").toMutableList()
+    if ((parts.count() != 3) || !(parts[1] in listMonth)) return ""
+    val month = listMonth.indexOf(parts[1])
+    parts[0] = twoDigitStr(parts[0].toInt())
+    parts[1] = twoDigitStr(month.toInt() + 1)
+    return parts.joinToString(separator = ".")
 
+}
 /**
  * Средняя
- *
+
  * Дата представлена строкой вида "15.07.2016".
  * Перевести её в строковый формат вида "15 июля 2016".
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val listMonth = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+            "сентября", "октября", "ноября", "декабря")
+    val parts = digital.split(".").toMutableList()
+    if (parts.count() != 3) return ""
+
+    val month: Int
+    try {
+        month = parts[1].toInt() - 1
+        if (month !in 0..11) return ""
+    } catch (ex: NumberFormatException) {
+        return ""
+    }
+    var day = parts[0].toInt()
+    val index = parts[1].toInt() % 10
+    if (parts[0].toInt() < 10) {
+        day = parts[0].toInt() % 10
+    }
+    parts[0] = day.toString()
+    parts[1] = listMonth[index - 1]
+    return parts.joinToString(separator = " ")
+}
 
 /**
  * Средняя
