@@ -119,7 +119,10 @@ fun dateDigitToStr(digital: String): String {
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
+    return phone.replace(Regex("""[ \-\(\)]"""), "")
+}
 
 /**
  * Средняя
@@ -165,8 +168,36 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var index = 0
+    var equals = 0
+    if (parts.count() <= 1) return -1
+    for (i in 0..parts.count() - 2) {
+        if ((parts[i] != parts[i + 1]) && (equals == 0))
+            index += parts[i].length + 1
+        else
+            equals++
+    }
+    return index
+}
+/*
+ for (i in 0..parts.count() - 2) {
+            if (parts[i] != parts[i + 1])
+                index += parts[i].length + 1
 
+
+    var dup = ""
+    var tmp = 0
+    for (s in str.toLowerCase().split(' ')) {
+        if (s != dup) {
+            dup = s
+            tmp += s.length + 1
+        } else return tmp - s.length - 1
+    }  else  return index - parts[i].length-1
+    return -1
+}
+*/
 /**
  * Сложная
  *
