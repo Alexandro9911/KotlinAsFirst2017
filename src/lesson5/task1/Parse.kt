@@ -181,23 +181,7 @@ fun firstDuplicateIndex(str: String): Int {
     }
     return index
 }
-/*
- for (i in 0..parts.count() - 2) {
-            if (parts[i] != parts[i + 1])
-                index += parts[i].length + 1
 
-
-    var dup = ""
-    var tmp = 0
-    for (s in str.toLowerCase().split(' ')) {
-        if (s != dup) {
-            dup = s
-            tmp += s.length + 1
-        } else return tmp - s.length - 1
-    }  else  return index - parts[i].length-1
-    return -1
-}
-*/
 /**
  * Сложная
  *
