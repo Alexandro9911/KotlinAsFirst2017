@@ -98,7 +98,7 @@ fun dateDigitToStr(digital: String): String {
         return ""
     }
     var day = parts[0].toInt()
-    val index = parts[1].toInt() % 10
+    val index = parts[1].toInt()
     if (parts[0].toInt() < 10) {
         day = parts[0].toInt() % 10
     }
