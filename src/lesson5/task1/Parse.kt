@@ -172,7 +172,7 @@ fun firstDuplicateIndex(str: String): Int {
     val parts = str.toLowerCase().split(" ")
     var index = 0
     if (parts.count() <= 1) return -1
-    for (i in 0..parts.count()) {
+    for (i in 0..parts.count() - 2) {
         if (parts[i] != parts[i + 1]) {
             index += parts[i].length + 1
         } else return index
@@ -199,10 +199,13 @@ fun mostExpensive(description: String): String {
         return answ[0]
     }
     var max = ""
+    var maxPrice = 0.0
     val parts = Regex(""";""").replace(description, "").split(" ")
     for (i in 1..parts.count() - 2 step 2) {
-        if (parts[i].toDouble() > parts[i + 2].toDouble())
+        if (parts[i].toDouble() > maxPrice) {
             max = parts[i - 1]
+            maxPrice = parts[i].toDouble()
+        }
     }
     return max
 }

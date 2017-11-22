@@ -117,6 +117,7 @@ fun diameter(vararg points: Point): Segment {
     return seg
 }
 
+
 /**
  * Простая
  *
