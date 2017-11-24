@@ -162,6 +162,7 @@ class Tests {
         assertApproxEquals(Line(Point(0.0, 0.0), Math.PI / 2), lineBySegment(Segment(Point(0.0, 0.0), Point(0.0, 8.0))))
         assertApproxEquals(Line(Point(1.0, 1.0), Math.PI / 4), lineBySegment(Segment(Point(1.0, 1.0), Point(3.0, 3.0))))
         assertApproxEquals(Line(Point(-6.0, -10.0), 0.0), lineBySegment(Segment(Point(-9.0, -10.0), Point(-6.0, -10.0))))
+        assertApproxEquals(Line(Point(-10.0, -5.0), Math.PI / 2), lineBySegment(Segment(Point(-10.0, -5.0), Point(-10.0, -8.0))))
     }
 
     @Test

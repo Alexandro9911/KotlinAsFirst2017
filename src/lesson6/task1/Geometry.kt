@@ -169,6 +169,7 @@ fun lineBySegment(s: Segment): Line {
     if (a < 0) a += Math.PI
     if (a >= Math.PI) a -= Math.PI
     if (s.begin.y == s.end.y) a = 0.0
+    if (s.begin.x == s.end.x) a = Math.PI / 2
     return Line(s.end, a)
 
 }
