@@ -99,6 +99,7 @@ class Tests {
         assertEquals(listOf(square("f1"), square("c4"), square("f7")), bishopTrajectory(square("f1"), square("f7")))
         bishopTrajectory(square("d2"), square("e5")).assertBishopTrajectory(square("d2"), square("e5"), 2)
         assertEquals(listOf(square("d2"), square("c3"), square("h8")), bishopTrajectory(square("d2"), square("h8")))
+        assertEquals(listOf(square("f2"), square("e3"), square("h6")), bishopTrajectory(square("f2"), square("h6")))
     }
 
     @Test

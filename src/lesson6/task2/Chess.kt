@@ -175,29 +175,29 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     }
     var cX = (((end.column + end.row) - (start.column + start.row)) / 2) + start.column
     var cY = end.column + end.row - cX
-    if (end.column == 8 && end.row == 8){
-        cX = end.column - (((end.column + end.row) - (start.column + start.row)) / 2)
-        cY = cX
+    if (cX < 8) {
         answ.add(start)
         answ.add(Square(cX, cY))
         answ.add(end)
         return answ
     }
-    if (cX > 8)
-        cX = start.column - (((end.column + end.row) - (start.column + start.row)) / 2)
-    answ.add(start)
-    answ.add(Square(cX, cY))
-    answ.add(end)
+    if (cX > 8) {
+        cX = start.column + end.column - cX
+        cY = start.column + start.row - cX
+        answ.add(start)
+        answ.add(Square(cX, cY))
+        answ.add(end)
+        return answ
+    }
+    if ((end.column == 8) && (end.row == 8)) {
+        cX = end.column - (((end.column + end.row) - (start.column + start.row)) / 2)
+        cY = cX
+        answ.add(start)
+        answ.add(Square(cX, cY))
+        answ.add(end)
+    }
     return answ
 }
-
-/**
-var cY = ((end.row - start.row) / 2) + start.row
-var cX = start.column + ((end.row - start.row) / 2)
-if (!Square(cX, cY).inside()){
-    cX = cX - start.column
-
-*/
 
 /**
  * Средняя
