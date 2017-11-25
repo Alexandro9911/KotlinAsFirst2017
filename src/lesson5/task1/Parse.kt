@@ -120,8 +120,11 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
-    return phone.replace(Regex("""[ \-\(\)]"""), "")
+    if (phone.isEmpty()) return ""
+    val plus = phone[0] == '+'
+    val phoneN = phone.replace(Regex("[-+() ]"), "")
+    if (!phoneN.matches(Regex("[0-9]+"))) return ""
+    return (if (plus) "+" else "") + phoneN
 }
 
 /**
