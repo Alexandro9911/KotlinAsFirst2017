@@ -42,7 +42,7 @@ data class Square(val column: Int, val row: Int) {
 fun square(notation: String): Square {
     val column = notation[0].toInt() + 1 - 'a'.toInt()
     val row = notation[1].toInt() - '0'.toInt()
-    if ((notation.count() != 2) || (column !in 1..8) || (row !in 1..8)) throw IllegalArgumentException()
+    if ((notation.length != 2) || (column !in 1..8) || (row !in 1..8)) throw IllegalArgumentException()
     return Square(column, row)
 }
 
