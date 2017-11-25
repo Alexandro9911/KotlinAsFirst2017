@@ -175,12 +175,6 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     }
     var cX = (((end.column + end.row) - (start.column + start.row)) / 2) + start.column
     var cY = end.column + end.row - cX
-    if (cX < 8) {
-        answ.add(start)
-        answ.add(Square(cX, cY))
-        answ.add(end)
-        return answ
-    }
     if (cX > 8) {
         cX = start.column + end.column - cX
         cY = start.column + start.row - cX
@@ -196,6 +190,9 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
         answ.add(Square(cX, cY))
         answ.add(end)
     }
+    answ.add(start)
+    answ.add(Square(cX, cY))
+    answ.add(end)
     return answ
 }
 
