@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson6.task2
 
 /**
@@ -21,7 +22,14 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        val columnLetters = ('a'..'h').toList()
+        if (!inside()) return ""
+        else {
+            val letter = columnLetters[column - 1]
+            return "$letter$row"
+        }
+    }
 }
 
 /**
@@ -31,7 +39,12 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square {
+    val column = notation[0].toInt() + 1 - 'a'.toInt()
+    val row = notation[1].toInt() - '0'.toInt()
+    if ((notation.count() != 2) || (column !in 1..8) || (row !in 1..8)) throw IllegalArgumentException()
+    return Square(column, row)
+}
 
 /**
  * Простая
@@ -56,7 +69,14 @@ fun square(notation: String): Square = TODO()
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int = TODO()
+fun rookMoveNumber(start: Square, end: Square): Int {
+    return when {
+        (!start.inside() || !end.inside()) -> throw IllegalArgumentException()
+        (start.column != end.column) && (start.row != end.row) -> 2
+        (start.column != end.column) || (start.row != end.row) -> 1
+        else -> 0
+    }
+}
 
 /**
  * Средняя
@@ -72,7 +92,23 @@ fun rookMoveNumber(start: Square, end: Square): Int = TODO()
  *          rookTrajectory(Square(3, 5), Square(8, 5)) = listOf(Square(3, 5), Square(8, 5))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun rookTrajectory(start: Square, end: Square): List<Square> {
+    val answ = mutableListOf<Square>()
+    if (start.column == end.column && start.row == end.row) {
+        answ.add(start)
+        return answ
+    }
+    if (start.column == end.column || start.row == end.row) {
+        answ.add(start)
+        answ.add(end)
+        return answ
+    }
+    answ.add(start)
+    answ.add(Square(start.column, end.row))
+    answ.add(end)
+    return answ
+}
+
 
 /**
  * Простая
@@ -97,7 +133,15 @@ fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Примеры: bishopMoveNumber(Square(3, 1), Square(6, 3)) = -1; bishopMoveNumber(Square(3, 1), Square(3, 7)) = 2.
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
-fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
+fun bishopMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    return when {
+        (start == end) -> 0
+        ((start.column + start.row) % 2 != (end.column + end.row) % 2) -> -1
+        (Math.abs(end.row - start.row) == Math.abs(end.column - start.column)) -> 1
+        else -> 2
+    }
+}
 
 /**
  * Сложная
@@ -117,7 +161,35 @@ fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    val answ = mutableListOf<Square>()
+    if ((start.column + start.row) % 2 != (end.column + end.row) % 2) return answ
+    if (start == end) {
+        answ.add(start)
+        return answ
+    }
+    if (Math.abs(end.row - start.row) == Math.abs(end.column - start.column)) {
+        answ.add(start)
+        answ.add(end)
+        return answ
+    }
+    var cX = (((end.column + end.row) - (start.column + start.row)) / 2) + start.column
+    val cY = end.column + end.row - cX
+    if (cX > 8)
+        cX = start.column - (((end.column + end.row) - (start.column + start.row)) / 2)
+    answ.add(start)
+    answ.add(Square(cX, cY))
+    answ.add(end)
+    return answ
+}
+
+/**
+var cY = ((end.row - start.row) / 2) + start.row
+var cX = start.column + ((end.row - start.row) / 2)
+if (!Square(cX, cY).inside()){
+    cX = cX - start.column
+
+*/
 
 /**
  * Средняя

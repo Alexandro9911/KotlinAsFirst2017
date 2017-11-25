@@ -173,20 +173,6 @@ fun lineBySegment(s: Segment): Line {
     return Line(s.end, a)
 
 }
- /*   return when {
-        (a < 0) ->  Line(s.end, a + Math.PI)
-        (s.begin.y == s.end.y) ->  Line(s.end, 0.0)
-        (s.begin.x == s.end.x) ->  Line(s.end, Math.PI / 2)
-        (a >= Math.PI) -> Line(s.end, a - Math.PI)
-    }*/
-
-   /* if  a += Math.PI
-    if (a >= Math.PI) a -= Math.PI
-    if (s.begin.y == s.end.y) a = 0.0
-    if (s.begin.x == s.end.x) a = Math.PI / 2
-    return Line(s.end, a)
-*/
-
 
 /**
  * Средняя
@@ -200,8 +186,29 @@ fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line =  TODO()
+fun bisectorByPoints(a: Point, b: Point): Line = TODO()
+/*{   ОНО ПОКА ЧТО НЕ РАБОТАЕТ АДЕКВАТНО
+    val seg = Segment(a, b)
+    val midSeg = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+    var atg = Math.atan2((seg.end.y - seg.begin.y), (seg.end.x - seg.begin.x))
+    if (atg <= Math.PI / 2) atg += Math.PI / 2
+    else atg -= Math.PI / 2
+    if (atg == Math.PI) return Line(midSeg, 0.0)
+    return Line(midSeg, atg)
+}
 
+    /*val seg = Segment(a, b)
+    val midSeg = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+    // var a = Math.atan(seg.end.y / seg.end.x)
+    var a =  Math.atan2((seg.end.y - seg.begin.y), (seg.end.x - seg.begin.x))
+  //  val tg = seg.end.y / seg.end.x
+    if (a <= Math.PI / 2) a += Math.PI / 2
+    else a -= Math.PI / 2
+    // if (a == Math.PI) a = 0.0
+    return Line(midSeg, a)
+    */
+
+*/
 /**
  * Средняя
  *
