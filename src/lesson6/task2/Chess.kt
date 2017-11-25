@@ -174,7 +174,15 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
         return answ
     }
     var cX = (((end.column + end.row) - (start.column + start.row)) / 2) + start.column
-    val cY = end.column + end.row - cX
+    var cY = end.column + end.row - cX
+    if (end.column == 8 && end.row == 8){
+        cX = end.column - (((end.column + end.row) - (start.column + start.row)) / 2)
+        cY = cX
+        answ.add(start)
+        answ.add(Square(cX, cY))
+        answ.add(end)
+        return answ
+    }
     if (cX > 8)
         cX = start.column - (((end.column + end.row) - (start.column + start.row)) / 2)
     answ.add(start)
