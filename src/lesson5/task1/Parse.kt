@@ -203,11 +203,12 @@ fun mostExpensive(description: String): String {
     }
     var max = ""
     var maxPrice = 0.0
-    val parts = Regex(""";""").replace(description, "").split(" ")
-    for (i in 1..parts.count() - 1 step 2) {
-        if (parts[i].toDouble() > maxPrice) {
-            max = parts[i - 1]
-            maxPrice = parts[i].toDouble()
+    val parts = description.split(";")
+    for (product in parts) {
+        val price = product.trim().split(" ")
+        if (price[1].toDouble() > maxPrice) {
+            maxPrice = price[1].toDouble()
+            max = price[0]
         }
     }
     return max
