@@ -187,9 +187,6 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     if ((end.column == 8) && (end.row == 8)) {
         cX = end.column - (((end.column + end.row) - (start.column + start.row)) / 2)
         cY = cX
-        answ.add(start)
-        answ.add(Square(cX, cY))
-        answ.add(end)
     }
     answ.add(start)
     answ.add(Square(cX, cY))
