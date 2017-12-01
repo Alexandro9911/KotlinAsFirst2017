@@ -196,7 +196,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
-    val parts =  description.split("; ")
+    val parts = description.split("; ")
     if (parts.count() == 1) {
         val answ = parts[0].split(" ")
         return answ[0]
@@ -204,7 +204,7 @@ fun mostExpensive(description: String): String {
     var max = ""
     var maxPrice = 0.0
     for (product in parts) {
-        val price = product.trim().split(" ")
+        val price = product.split(" ")
         if (price[1].toDouble() > maxPrice) {
             maxPrice = price[1].toDouble()
             max = price[0]
