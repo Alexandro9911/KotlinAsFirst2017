@@ -196,7 +196,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
-    val parts =  description.split("; ")
+    val parts = description.split("; ")
     if (parts.count() == 1) {
         val answ = parts[0].split(" ")
         return answ[0]
