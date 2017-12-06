@@ -255,12 +255,12 @@ fun minContainingCircle(vararg points: Point): Circle {
         return Circle(center, radius)
     }
     for (a in points) {
-        val allWithOutA = points.filter { it != a }
+        val allWithOutA = points.filter {it != a}
         for (b in allWithOutA) {
-            val allWithOutAandB = points.filter { it != a && it != b }
+            val allWithOutAandB = points.filter {it != a && it != b}
             for (c in allWithOutAandB) {
                 if (circleByThreePoints(a, b, c).radius < answ.radius &&
-                        points.all { circleByThreePoints(a, b, c).contains(it) })
+                        points.all {circleByThreePoints(a, b, c).contains(it)})
                     answ = circleByThreePoints(a, b, c)
             }
         }
