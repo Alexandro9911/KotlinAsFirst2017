@@ -147,7 +147,24 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Найти точку пересечения с другой линией.
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
-    fun crossPoint(other: Line): Point = TODO()
+    fun crossPoint(other: Line): Point {
+        if (this.angle == Math.PI / 2) {
+            val x = -this.b
+            val y = (-this.b) * Math.tan(other.angle) + other.b / Math.cos(other.angle)
+            return Point(x, y)
+        }
+        if (other.angle == Math.PI / 2) {
+            val x = -other.b
+            val y = (-other.b) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
+            return Point(x, y)
+        }
+        val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.tan(this.angle) - Math.tan(other.angle))
+        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.tan(this.angle) - Math.tan(other.angle))) *
+                Math.tan(this.angle) + this.b / Math.cos(this.angle)
+        return Point(x, y)
+    }
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
@@ -169,7 +186,7 @@ fun lineBySegment(s: Segment): Line {
     var a = Math.atan2((s.end.y - s.begin.y), (s.end.x - s.begin.x))
     if (a < 0) a += Math.PI
     if (a >= Math.PI) a -= Math.PI
-    return Line(s.end, a)
+    return Line(s.begin, a)
 
 }
 
@@ -185,12 +202,12 @@ fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line {  // ОНО ПОКА ЧТО НЕ РАБОТАЕТ АДЕКВАТНО
-    val seg = Segment(a, b)
+fun bisectorByPoints(a: Point, b: Point): Line {
     val midSeg = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
-    var atg = Math.atan2((seg.end.y - seg.begin.y), (seg.end.x - seg.begin.x))
-    if (atg <= Math.PI / 2) atg += Math.PI / 2
-    else atg -= Math.PI / 2
+    var atg = lineByPoints(a, b).angle
+    if (lineByPoints(a, b).angle <= Math.PI / 2) atg += Math.PI / 2
+    else atg = lineByPoints(a, b).angle - Math.PI / 2
+    if (atg == Math.PI) atg = 0.0
     return Line(midSeg, atg)
 }
 
@@ -211,7 +228,11 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val center = bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c))
+    val radius = center.distance(a)
+    return Circle(center, radius)
+}
 
 /**
  * Очень сложная
