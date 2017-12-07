@@ -232,7 +232,6 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
         Circle(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)),
                 bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)).distance(a))
 
-
 /**
  * Очень сложная
  *
