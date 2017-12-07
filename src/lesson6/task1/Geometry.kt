@@ -267,10 +267,9 @@ fun minContainingCircle(vararg points: Point): Circle {
             }
         }
         val diam = seg
-        val center = Point((diam.begin.x + diam.end.x) / 2, (diam.begin.y + diam.end.y) / 2)
-        val rad = diam.begin.distance(diam.end) / 2
-        if (Circle(center, rad).radius < answD.radius && points.all { Circle(center, rad).contains(it) })
-            answD = Circle(center, rad)
+        val circl = circleByDiameter(diam)
+        if (circl.radius < answD.radius && points.all { circl.contains(it) })
+            answD = circl
     }
     for (a in points) {
         val allWithOutA = points.filter { it != a }
