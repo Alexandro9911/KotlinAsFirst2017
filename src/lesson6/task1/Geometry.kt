@@ -251,7 +251,7 @@ fun minContainingCircle(vararg points: Point): Circle {
     var answD = Circle(Point(0.0, 0.0), 1000000000000.0)
     if (points.isEmpty()) throw IllegalArgumentException()
     if (points.size == 1) return Circle(points[0], 0.0)
-    if (points.size == 2) circleByDiameter(Segment(points[0], points[1]))
+    if (points.size == 2)  return circleByDiameter(Segment(points[0], points[1]))
     for (m in points) {
         val allWithOutM = points.filter { it != m }
         for (n in allWithOutM) {
