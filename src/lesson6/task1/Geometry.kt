@@ -254,7 +254,7 @@ fun minContainingCircle(vararg points: Point): Circle {
     if (points.isEmpty()) throw IllegalArgumentException()
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
-        val radius = points[0].distance(points[1])
+        val radius = points[0].distance(points[1]) / 2
         val center = Point((points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2)
         return Circle(center, radius)
     }
