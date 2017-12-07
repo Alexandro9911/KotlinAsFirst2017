@@ -126,8 +126,11 @@ fun diameter(vararg points: Point): Segment {
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle = TODO()
-
+fun circleByDiameter(diameter: Segment): Circle {
+    val center = Point((diameter.begin.x + diameter.end.x) / 2, (diameter.begin.y + diameter.end.y) / 2)
+    val radius = center.distance(diameter.begin)
+    return Circle(center, radius)
+}
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
  * Уравнение прямой: (y - point.y) * cos(angle) = (x - point.x) * sin(angle)
@@ -245,12 +248,33 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
  */
 fun minContainingCircle(vararg points: Point): Circle {
     var answ = Circle(Point(0.0, 0.0), 1000000000000.0)
+    var answD = Circle(Point(0.0, 0.0), 1000000000000.0)
     if (points.isEmpty()) throw IllegalArgumentException()
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
         val radius = points[0].distance(points[1])
         val center = Point((points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2)
         return Circle(center, radius)
+    }
+    for (m in points) {
+        val allWithOutM = points.filter { it != m }
+        for (n in allWithOutM) {
+            var dmax = points[0].distance(points[0])
+            var seg = Segment(points[0], points[0])
+            for (i in 0..points.size - 2) {
+                for (e in i + 1..points.size - 1) {
+                    if (points[i].distance(points[e]) > dmax) {
+                        dmax = points[i].distance(points[e])
+                        seg = Segment(points[i], points[e])
+                    }
+                }
+            }
+            val diametr = seg
+            val center = Point((diametr.begin.x + diametr.end.x) / 2, (diametr.begin.y + diametr.end.y) / 2)
+            val rad = center.distance(diametr.begin)
+            if (Circle(center, rad).radius < answD.radius && points.all { Circle(center, rad).contains(it) })
+                answD = Circle(center, rad)
+        }
     }
     for (a in points) {
         val allWithOutA = points.filter { it != a }
@@ -263,6 +287,7 @@ fun minContainingCircle(vararg points: Point): Circle {
             }
         }
     }
-    return answ
+    if (answ.radius < answD.radius) return answ
+    else return answD
 }
 
