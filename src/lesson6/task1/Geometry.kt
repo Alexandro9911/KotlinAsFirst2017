@@ -151,10 +151,22 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
     fun crossPoint(other: Line): Point {
-   // ПОПРОБУЕМ ТАК, ВДРУГ ЗАРАБОТАЕТ)
-        val x = (other.b / Math.cos(other.angle) - b / Math.cos(this.angle)) / (Math.tan(this.angle) -
-                Math.tan(other.angle))
-        val y = x * Math.tan(other.angle) + other.b / Math.cos(other.angle)
+   // вернул к оригиналу, потом придумаю что делать с этим)
+        if (this.angle == Math.PI / 2) {
+            val x = -this.b
+            val y = (-this.b) * Math.tan(other.angle) + other.b / Math.cos(other.angle)
+            return Point(x, y)
+        }
+        if (other.angle == Math.PI / 2) {
+            val x = -other.b
+            val y = (-other.b) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
+            return Point(x, y)
+        }
+        val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.tan(this.angle) - Math.tan(other.angle))
+        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.tan(this.angle) - Math.tan(other.angle))) *
+                Math.tan(this.angle) + this.b / Math.cos(this.angle)
         return Point(x, y)
     }
 
