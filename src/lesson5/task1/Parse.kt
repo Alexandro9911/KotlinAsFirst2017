@@ -122,7 +122,7 @@ fun dateDigitToStr(digital: String): String {
 fun flattenPhoneNumber(phone: String): String {
     if (phone.isEmpty()) return ""
     val plus = phone[0] == '+'
-    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
+    if (!phone.matches(Regex("""^\+?\d{1,}[ \d\-\(\)]{1,}$"""))) return ""
     val phoneN = phone.replace(Regex("[-+() ]"), "")
     if (!phoneN.matches(Regex("[0-9]+"))) return ""
     return (if (plus) "+" else "") + phoneN

@@ -151,21 +151,10 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
     fun crossPoint(other: Line): Point {
-        if (this.angle == Math.PI / 2) {
-            val x = -this.b
-            val y = (-this.b) * Math.tan(other.angle) + other.b / Math.cos(other.angle)
-            return Point(x, y)
-        }
-        if (other.angle == Math.PI / 2) {
-            val x = -other.b
-            val y = (-other.b) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
-            return Point(x, y)
-        }
-        val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                (Math.tan(this.angle) - Math.tan(other.angle))
-        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                (Math.tan(this.angle) - Math.tan(other.angle))) *
-                Math.tan(this.angle) + this.b / Math.cos(this.angle)
+   // ПОПРОБУЕМ ТАК, ВДРУГ ЗАРАБОТАЕТ)
+        val x = (other.b / Math.cos(other.angle) - b / Math.cos(this.angle)) / (Math.tan(this.angle) -
+                Math.tan(other.angle))
+        val y = x * Math.tan(other.angle) + other.b / Math.cos(other.angle)
         return Point(x, y)
     }
 
@@ -249,9 +238,9 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
 fun minContainingCircle(vararg points: Point): Circle {
     var answ = Circle(Point(0.0, 0.0), 1000000000000.0)
     var answD = Circle(Point(0.0, 0.0), 1000000000000.0)
+    if (points.isEmpty()) throw IllegalArgumentException()
     var dmax = points[0].distance(points[0])
     var seg = Segment(points[0], points[0])
-    if (points.isEmpty()) throw IllegalArgumentException()
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
         val radius = points[0].distance(points[1]) / 2
