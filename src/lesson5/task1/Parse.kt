@@ -118,16 +118,38 @@ fun dateDigitToStr(digital: String): String {
  * "+79211234567" или "123456789" для приведённых примеров.
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
+ *
+ *                       ""             +))()(989929))((
+ *                      ""              ))()(+989929))((
  */
 fun flattenPhoneNumber(phone: String): String {
     if (phone.isEmpty()) return ""
     val plus = phone[0] == '+'
-    if ((phone.replace(Regex("[-+() ]"), "").count() == 1)&& phone[0] != '+')
-        return phone.replace(Regex("[-+() ]"), "")
-    if (!phone.matches(Regex("""^\+?\d{1,}[ \d\-\(\)]{1,}$"""))) return ""
+    if(phone.matches(Regex("[+]")) && phone[0] != '+') return ""
+    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
     val phoneN = phone.replace(Regex("[-+() ]"), "")
     if (!phoneN.matches(Regex("[0-9]+"))) return ""
     return (if (plus) "+" else "") + phoneN
+/*
+    val phoneFilter = phone.filter { it != ' ' && it != '-' }
+    val phoneNum = Regex("""(?:\+\d+)?(?:\(\d+\))?\d+""")
+    if (!phoneNum.matches(phoneFilter)) return ""
+    return phoneFilter.filter { it !in '('..')'
+
+ if (phone.isEmpty()) return ""
+    val plus = phone[0] == '+'
+    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
+    val phoneN = phone.replace(Regex("[-+() ]"), "")
+    if (!phoneN.matches(Regex("[0-9]+"))) return ""
+    return (if (plus) "+" else "") + phoneN
+
+    if (phone.isEmpty()) return ""
+    if (!phone.matches(Regex("[0-9]+"))) return ""
+    val plus = phone[0] == '+'
+    if (!phone.matches(Regex("""^\+?\d{1,}[ \d\-\(\)]{1,}$"""))) return ""
+    val phoneN = phone.replace(Regex("[-+() ]"), "")
+        return (if (plus) "+" else "") + phoneN
+        */
 }
 
 /**
