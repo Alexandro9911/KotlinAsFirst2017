@@ -162,8 +162,12 @@ class Line private constructor(val b: Double, val angle: Double) {
             val y = (-other.b) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
             return Point(x, y)
         }
-        val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+        val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle-other.angle)) * (this.b / Math.cos(this.angle)
+                - other.b / Math.cos(other.angle))) / (
+                Math.sin(this.angle) * Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
+              /*  -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
                 (Math.tan(this.angle) - Math.tan(other.angle))
+                */
         val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
                 (Math.tan(this.angle) - Math.tan(other.angle))) *
                 Math.tan(this.angle) + this.b / Math.cos(this.angle)
@@ -276,7 +280,9 @@ fun minContainingCircle(vararg points: Point): Circle {
             }
         }
     }
-    if (answ.radius < answD.radius) return answ
-    else return answD
+   // if (answ.radius < answD.radius) return answ
+  //  else return answD
+    return answ
 }
+
 
