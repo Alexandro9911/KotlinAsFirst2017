@@ -280,9 +280,9 @@ fun minContainingCircle(vararg points: Point): Circle {
             }
         }
     }
-   // if (answ.radius < answD.radius) return answ
-  //  else return answD
-    return answ
+    if (answ.radius < answD.radius) return answ
+    else return answD
+  //  return answ
 }
 
 
