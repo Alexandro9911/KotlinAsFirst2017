@@ -208,11 +208,15 @@ fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
     val midSeg = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
-    var atg = lineByPoints(a, b).angle
-    if (lineByPoints(a, b).angle <= Math.PI / 2) atg += Math.PI / 2
-    else atg = lineByPoints(a, b).angle - Math.PI / 2
-    if (atg == Math.PI) atg = 0.0
-    return Line(midSeg, atg)
+    val ang = angle(a, b)
+    return Line(midSeg, ang)
+}
+fun angle(a: Point, b: Point): Double {
+    val ang = lineByPoints(a, b).angle
+    var answ = 0.0
+    if (ang < Math.PI / 2) answ = ang + Math.PI / 2
+    else answ = ang - Math.PI / 2
+    return answ
 }
 
 /**
@@ -232,10 +236,11 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
-        Circle(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)),
-                bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)).distance(a))
-
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val b1 = bisectorByPoints(a, b)
+    val b2 = bisectorByPoints(b, c)
+   return  Circle(b1.crossPoint(b2), b1.crossPoint(b2).distance(a))
+}
 /**
  * Очень сложная
  *
@@ -248,18 +253,18 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
  * соединяющий две самые удалённые точки в данном множестве.
  */
 fun minContainingCircle(vararg points: Point): Circle {
-    var answ = Circle(Point(0.0, 0.0), 1000000000000.0)
-    var answD = Circle(Point(0.0, 0.0), 1000000000000.0)
+    var answ = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
+   var answD = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
     if (points.isEmpty()) throw IllegalArgumentException()
-    var dmax = points[0].distance(points[0])
-    var seg = Segment(points[0], points[0])
+  //  var dmax = points[0].distance(points[0])
+  //  var seg = Segment(points[0], points[0])
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
         val radius = points[0].distance(points[1]) / 2
         val center = Point((points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2)
         return Circle(center, radius)
     }
-    for (m in points) {
+  /*  for (m in points) {
         val allWithOutM = points.filter { it != m }
         for (n in allWithOutM) {
             if (m.distance(n) > dmax) {
@@ -267,23 +272,22 @@ fun minContainingCircle(vararg points: Point): Circle {
                 seg = Segment(m, n)
             }
         }
-        val diam = seg
-        val circl = circleByDiameter(diam)
-        if (circl.radius < answD.radius && points.all { circl.contains(it) })
-            answD = circl
-    }
-    for (a in points) {
-        val allWithOutA = points.filter { it != a }
-        for (b in allWithOutA) {
-            val allWithOutAandB = points.filter { it != a && it != b }
-            for (c in allWithOutAandB) {
-                if (circleByThreePoints(a, b, c).radius < answ.radius &&
-                        points.all { circleByThreePoints(a, b, c).contains(it) })
-                    answ = circleByThreePoints(a, b, c)
+      */ // val diam =
+        val circl = circleByDiameter(diameter(*points))
+    if (points.all { circl.contains(it) })
+        answD = circl
+    for (a in 0..points.size - 2) {
+        for (b in a + 1..points.size - 1) {
+            for (c in b + 1..points.size - 1) {
+                if (circleByThreePoints(points[a], points[b], points[c]).radius < answ.radius &&
+                        points.all { circleByThreePoints(points[a], points[b], points[c]).contains(it) })
+                    answ = circleByThreePoints(points[a], points[b], points[c])
+                //return answ
             }
         }
     }
-    if (answ.radius < answD.radius) return answ
-    else return answD
+   if (answ.radius < answD.radius) return answ
+   else return answD
+   // return answ
 }
 
