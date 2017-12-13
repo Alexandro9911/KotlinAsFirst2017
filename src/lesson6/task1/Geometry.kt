@@ -2,6 +2,8 @@
 package lesson6.task1
 
 import lesson1.task1.sqr
+import lesson3.task1.cos
+import lesson3.task1.sin
 
 /**
  * Точка на плоскости
@@ -175,7 +177,6 @@ class Line private constructor(val b: Double, val angle: Double) {
                 (Math.tan(this.angle) - Math.tan(other.angle))) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
 
         return Point(x, y)
-
     }
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
@@ -272,12 +273,6 @@ fun minContainingCircle(vararg points: Point): Circle {
     }
     val circl = circleByDiameter(diameter(*points))
     if (points.all { circl.contains(it) }) return circl
-    /* for (a in 0..points.size - 2) {
-         for (b in a + 1..points.size - 1) {
-             for (c in b + 1..points.size - 1) {
-                 if (circleByThreePoints(points[a], points[b], points[c]).radius < answ.radius &&
-                         points.all { circleByThreePoints(points[a], points[b], points[c]).contains(it) })
-                     answ = circleByThreePoints(points[a], points[b], points[c])*/
     for (a in points) {
         val allWithOutA = points.filter { it != a }
         for (b in allWithOutA) {
