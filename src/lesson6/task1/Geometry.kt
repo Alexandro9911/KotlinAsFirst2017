@@ -168,7 +168,6 @@ class Line private constructor(val b: Double, val angle: Double) {
                   (Math.tan(this.angle) - Math.tan(other.angle))) *
                   Math.tan(this.angle) + this.b / Math.cos(this.angle)
   */
-
         val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle - other.angle)) * (this.b / Math.cos(this.angle)
                 - other.b / Math.cos(other.angle))) / (
                 Math.sin(this.angle) * Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
@@ -264,9 +263,7 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  */
 fun minContainingCircle(vararg points: Point): Circle {
     var answ = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
-    //  var answD = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
     if (points.isEmpty()) throw IllegalArgumentException()
-    var seg = Segment(points[0], points[0])
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
         val radius = points[0].distance(points[1]) / 2
@@ -275,7 +272,7 @@ fun minContainingCircle(vararg points: Point): Circle {
     }
     val circl = circleByDiameter(diameter(*points))
     if (points.all { circl.contains(it) }) return circl
-    for (a in 0..points.size - 2) {
+    for (a in 0..points.size - 1) {
         for (b in a + 1..points.size - 1) {
             for (c in b + 1..points.size - 1) {
                 if (circleByThreePoints(points[a], points[b], points[c]).radius < answ.radius &&
