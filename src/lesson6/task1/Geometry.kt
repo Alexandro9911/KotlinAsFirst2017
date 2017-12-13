@@ -211,6 +211,7 @@ fun bisectorByPoints(a: Point, b: Point): Line {
     val ang = angle(a, b)
     return Line(midSeg, ang)
 }
+
 fun angle(a: Point, b: Point): Double {
     val ang = lineByPoints(a, b).angle
     var answ = 0.0
@@ -254,26 +255,16 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  */
 fun minContainingCircle(vararg points: Point): Circle {
     var answ = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
-   var answD = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
+    var answD = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
     if (points.isEmpty()) throw IllegalArgumentException()
-  //  var dmax = points[0].distance(points[0])
-  //  var seg = Segment(points[0], points[0])
+    var seg = Segment(points[0], points[0])
     if (points.size == 1) return Circle(points[0], 0.0)
     if (points.size == 2) {
         val radius = points[0].distance(points[1]) / 2
         val center = Point((points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2)
         return Circle(center, radius)
     }
-  /*  for (m in points) {
-        val allWithOutM = points.filter { it != m }
-        for (n in allWithOutM) {
-            if (m.distance(n) > dmax) {
-                dmax = m.distance(m)
-                seg = Segment(m, n)
-            }
-        }
-      */ // val diam =
-        val circl = circleByDiameter(diameter(*points))
+    val circl = circleByDiameter(diameter(*points))
     if (points.all { circl.contains(it) })
         answD = circl
     for (a in 0..points.size - 2) {
@@ -282,12 +273,10 @@ fun minContainingCircle(vararg points: Point): Circle {
                 if (circleByThreePoints(points[a], points[b], points[c]).radius < answ.radius &&
                         points.all { circleByThreePoints(points[a], points[b], points[c]).contains(it) })
                     answ = circleByThreePoints(points[a], points[b], points[c])
-                //return answ
             }
         }
     }
-   if (answ.radius < answD.radius) return answ
-   else return answD
-   // return answ
+    if (answ.radius < answD.radius) return answ
+    else return answD
 }
 

@@ -130,26 +130,6 @@ fun flattenPhoneNumber(phone: String): String {
     val phoneN = phone.replace(Regex("[-+() ]"), "")
     if (!phoneN.matches(Regex("[0-9]+"))) return ""
     return (if (plus) "+" else "") + phoneN
-/*
-    val phoneFilter = phone.filter { it != ' ' && it != '-' }
-    val phoneNum = Regex("""(?:\+\d+)?(?:\(\d+\))?\d+""")
-    if (!phoneNum.matches(phoneFilter)) return ""
-    return phoneFilter.filter { it !in '('..')'
-
- if (phone.isEmpty()) return ""
-    val plus = phone[0] == '+'
-    if (!phone.matches(Regex("""^\+?[ \d\-\(\)]{1,}$"""))) return ""
-    val phoneN = phone.replace(Regex("[-+() ]"), "")
-    if (!phoneN.matches(Regex("[0-9]+"))) return ""
-    return (if (plus) "+" else "") + phoneN
-
-    if (phone.isEmpty()) return ""
-    if (!phone.matches(Regex("[0-9]+"))) return ""
-    val plus = phone[0] == '+'
-    if (!phone.matches(Regex("""^\+?\d{1,}[ \d\-\(\)]{1,}$"""))) return ""
-    val phoneN = phone.replace(Regex("[-+() ]"), "")
-        return (if (plus) "+" else "") + phoneN
-        */
 }
 
 /**
