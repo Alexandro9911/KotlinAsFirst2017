@@ -314,7 +314,7 @@ fun russian(n: Int): String {
             } else answ.add(thouthand(r3))
         } else {
             answ.add(str5[r3])
-            answ.add(thouthand(r3))
+            answ.add(str6[2])
         }
     } else {
         if (r3 != 0) {
