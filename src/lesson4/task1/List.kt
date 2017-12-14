@@ -310,8 +310,8 @@ fun russian(n: Int): String {
             answ.add(str2[r2])
             if (r3 != 0) {
                 answ.add(str4[r3])
-                answ.add(thouthand(r3))
-            } else answ.add(thouthand(r3))
+                answ.add(thousand(r3))
+            } else answ.add(thousand(r3))
         } else {
             answ.add(str5[r3])
             answ.add(str6[2])
@@ -319,7 +319,7 @@ fun russian(n: Int): String {
     } else {
         if (r3 != 0) {
             answ.add(str4[r3])
-            answ.add(thouthand(r3))
+            answ.add(thousand(r3))
         }
     }
     if (r1 != 0 && r2 == 0 && r3 == 0) answ.add(str6[2])
@@ -335,7 +335,7 @@ fun russian(n: Int): String {
     return answ.joinToString(separator = " ")
 }
 
- fun thouthand(r: Int): String {
+ fun thousand(r: Int): String {
      return when {
          (r == 1) -> "тысяча"
          (r == 2 || r == 3 || r == 4) -> "тысячи"
