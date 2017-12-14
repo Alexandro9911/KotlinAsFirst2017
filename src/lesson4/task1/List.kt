@@ -315,6 +315,7 @@ fun russian(n: Int): String {
                     else answ.add(str6[1])
                 } else answ.add(str6[0])
             }
+            else answ.add(str6[2])
         } else {
             answ.add(str5[r3])
             answ.add(str6[2])
