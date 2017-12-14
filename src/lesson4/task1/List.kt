@@ -287,7 +287,7 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    val str1 = listOf<String>("ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val str1 = listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
     val str2 = listOf<String>("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
             "восемьдесят", "девяносто")
     val str3 = listOf<String>("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
@@ -311,11 +311,10 @@ fun russian(n: Int): String {
             if (r3 != 0) {
                 answ.add(str4[r3])
                 if (r3 != 1) {
-                    if ((r3 != 2 || r3 != 3 || r3 != 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[2])
+                    if ((r3 == 2 || r3 == 3 || r3 == 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[1])
                     else answ.add(str6[1])
                 } else answ.add(str6[0])
-            }
-            else answ.add(str6[2])
+            } else answ.add(str6[2])
         } else {
             answ.add(str5[r3])
             answ.add(str6[2])
@@ -334,11 +333,11 @@ fun russian(n: Int): String {
     if (r5 != 0) {
         if (r5 != 1) {
             answ.add(str2[r5])
-            answ.add(str1[r6])
+            if(r6 !=0) answ.add(str1[r6])
         } else answ.add(str5[r6])
-    } else
+    } else {
         if (r6 != 0) answ.add(str1[r6])
-    if((n - 0) ==  0) answ.add(str1[r6])
+    }
     return answ.joinToString(separator = " ")
 }
 
