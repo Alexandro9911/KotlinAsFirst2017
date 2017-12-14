@@ -286,4 +286,58 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val str1 = listOf<String>("ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val str2 = listOf<String>("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+            "восемьдесят", "девяносто")
+    val str3 = listOf<String>("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
+            "восемьсот", "девятьсот")
+    val str4 = listOf<String>("", "одна", "две", "три", "четыре", "пять",
+            "шесть", "семь", "восемь", "девять")
+    val str5 = listOf<String>("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+            "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    val str6 = listOf<String>("тысяча", "тысячи", "тысяч")
+    val answ = mutableListOf<String>()
+    val r1 = n / 100000
+    val r2 = n / 10000 % 10
+    val r3 = n / 1000 % 10
+    val r4 = n / 100 % 10
+    val r5 = n / 10 % 10
+    val r6 = n % 10
+    if (r1 != 0) answ.add(str3[r1])
+    if (r2 != 0) {
+        if (r2 != 1) {
+            answ.add(str2[r2])
+            if (r3 != 0) {
+                answ.add(str4[r3])
+                if (r3 != 1) {
+                    if ((r3 != 2 || r3 != 3 || r3 != 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[2])
+                    else answ.add(str6[1])
+                } else answ.add(str6[0])
+            }
+        } else {
+            answ.add(str5[r3])
+            answ.add(str6[2])
+        }
+    } else {
+        if (r3 != 0) {
+            answ.add(str4[r3])
+            if (r3 != 1) {
+                if ((r3 != 2 || r3 != 3 || r3 != 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[2])
+                else answ.add(str6[1])
+            } else answ.add(str6[0])
+        }
+    }
+    if (r1 != 0 && r2 == 0 && r3 == 0) answ.add(str6[2])
+    if (r4 != 0) answ.add(str3[r4])
+    if (r5 != 0) {
+        if (r5 != 1) {
+            answ.add(str2[r5])
+            answ.add(str1[r6])
+        } else answ.add(str5[r6])
+    } else
+        if (r6 != 0) answ.add(str1[r6])
+    if((n - 0) ==  0) answ.add(str1[r6])
+    return answ.joinToString(separator = " ")
+}
+
