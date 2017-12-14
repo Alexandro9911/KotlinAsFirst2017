@@ -310,22 +310,16 @@ fun russian(n: Int): String {
             answ.add(str2[r2])
             if (r3 != 0) {
                 answ.add(str4[r3])
-                if (r3 != 1) {
-                    if ((r3 == 2 || r3 == 3 || r3 == 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[1])
-                    else answ.add(str6[1])
-                } else answ.add(str6[0])
-            } else answ.add(str6[2])
+                answ.add(thouthand(r3))
+            } else answ.add(thouthand(r3))
         } else {
             answ.add(str5[r3])
-            answ.add(str6[2])
+            answ.add(thouthand(r3))
         }
     } else {
         if (r3 != 0) {
             answ.add(str4[r3])
-            if (r3 != 1) {
-                if ((r3 != 2 || r3 != 3 || r3 != 4) && r1 != 0 && r2 != 0 && r3 != 0) answ.add(str6[2])
-                else answ.add(str6[1])
-            } else answ.add(str6[0])
+            answ.add(thouthand(r3))
         }
     }
     if (r1 != 0 && r2 == 0 && r3 == 0) answ.add(str6[2])
@@ -333,11 +327,19 @@ fun russian(n: Int): String {
     if (r5 != 0) {
         if (r5 != 1) {
             answ.add(str2[r5])
-            if(r6 !=0) answ.add(str1[r6])
+            if (r6 != 0) answ.add(str1[r6])
         } else answ.add(str5[r6])
     } else {
         if (r6 != 0) answ.add(str1[r6])
     }
     return answ.joinToString(separator = " ")
 }
+
+ fun thouthand(r: Int): String {
+     return when {
+         (r == 1) -> "тысяча"
+         (r == 2 || r == 3 || r == 4) -> "тысячи"
+         else -> "тысяч"
+     }
+ }
 
