@@ -172,11 +172,10 @@ class Line private constructor(val b: Double, val angle: Double) {
         val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle - other.angle)) *
                 (this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle))) / (Math.sin(this.angle) *
                 Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
-        val y = x * ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
-                /*(-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
                 (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
                 ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
-                */
+
         return Point(x, y)
     }
 
