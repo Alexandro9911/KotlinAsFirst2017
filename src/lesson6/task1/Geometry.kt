@@ -153,7 +153,6 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
     fun crossPoint(other: Line): Point {
-        // вернул к оригиналу, потом придумаю что делать с этим)
         if (this.angle == Math.PI / 2) {
             val x = -this.b
             val y = (-this.b) * Math.tan(other.angle) + other.b / Math.cos(other.angle)
@@ -164,19 +163,21 @@ class Line private constructor(val b: Double, val angle: Double) {
             val y = (-other.b) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
             return Point(x, y)
         }
-        /*  val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                  (Math.tan(this.angle) - Math.tan(other.angle))
-          val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                  (Math.tan(this.angle) - Math.tan(other.angle))) *
-                  Math.tan(this.angle) + this.b / Math.cos(this.angle)
-  */
-        val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle - other.angle)) * (this.b / Math.cos(this.angle)
-                - other.b / Math.cos(other.angle))) / (
-                Math.sin(this.angle) * Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
-        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                (Math.tan(this.angle) - Math.tan(other.angle))) * Math.tan(this.angle) + this.b / Math.cos(this.angle)
-
-        return Point(x , y)
+        /*   val x = -(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                   (Math.tan(this.angle) - Math.tan(other.angle))
+           val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                   (Math.tan(this.angle) - Math.tan(other.angle))) *
+                   Math.tan(this.angle) + this.b / Math.cos(this.angle)
+        */
+        val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle - other.angle)) *
+                (this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle))) / (Math.sin(this.angle) *
+                Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
+        val y = x * ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
+                /*(-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
+                ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
+                */
+        return Point(x, y)
     }
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
