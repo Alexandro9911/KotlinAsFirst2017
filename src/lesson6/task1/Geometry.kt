@@ -172,9 +172,14 @@ class Line private constructor(val b: Double, val angle: Double) {
         val x = -(((Math.cos(this.angle + other.angle) + Math.cos(this.angle - other.angle)) *
                 (this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle))) / (Math.sin(this.angle) *
                 Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
-        val y = (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-                (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
-                ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
+
+        val y = (-(other.b / Math.cos(other.angle) - other.b / Math.cos(other.angle)) /
+                (Math.sin(other.angle - this.angle) / (Math.cos(other.angle) * Math.cos(this.angle)))) *
+                ((Math.sin(other.angle) / Math.cos(other.angle))) + other.b / Math.cos(other.angle)
+
+        /*(-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+        (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
+        ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)*/
 
         return Point(x, y)
     }
@@ -249,7 +254,7 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
 fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
     val b1 = bisectorByPoints(a, b)
     val b2 = bisectorByPoints(b, c)
-   return  Circle(b1.crossPoint(b2), b1.crossPoint(b2).distance(a))
+    return Circle(b1.crossPoint(b2), b1.crossPoint(b2).distance(a))
 }
 /**
  * Очень сложная

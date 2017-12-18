@@ -80,19 +80,25 @@ class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : M
     }
 
     override fun toString(): String {
-        val res = StringBuilder()
+        val answ = StringBuilder()
+        answ.append("[")
         for (i in 0 until height) {
-            for (j in 0 until width)
-                res.append(this[i, j])
-            res.append("\n")
+            answ.append("[")
+            for (j in 0 until width) {
+                answ.append(this[i, j])
+            }
+            answ.append("]")
         }
-        return res.toString()
+        answ.append("]")
+        return "$answ"
     }
+
+
     override fun hashCode(): Int {
         var result = 5
         result = result * 31 + height
         result = result * 31 + width
-        // Something for elements...
+        result = 31 * result + (list?.hashCode() ?: 0)
         return result
     }
 }
