@@ -98,7 +98,7 @@ class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : M
         var result = 5
         result = result * 31 + height
         result = result * 31 + width
-        result = 31 * result + (list?.hashCode() ?: 0)
+        result = result * 31 + (list?.hashCode() ?: 0)
         return result
     }
 }
