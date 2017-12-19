@@ -173,13 +173,17 @@ class Line private constructor(val b: Double, val angle: Double) {
                 (this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle))) / (Math.sin(this.angle) *
                 Math.cos(other.angle) - Math.cos(this.angle) * Math.sin(other.angle))) / 2
 
-        val y = (-(other.b / Math.cos(other.angle) - other.b / Math.cos(other.angle)) /
+        val y =  (-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
+                (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
+                ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)
+
+        // ДАЛЕЕ НАХОЖДЕНИЕ ЗНАЧЕНИЯ У ,ЕСЛИ ПОМЕНЯТЬ МЕТОД НА "НАХОЖДЕНИЕ ЧЕРЕЗ ПРЯМУЮ УГОЛ НАКЛОНА КОТОРОЙ РАСПОЛОЖЕН
+        // ДАЛЬШЕ ОТ ВЕРТИКАЛЬНОГО УГЛА"
+                (-(other.b / Math.cos(other.angle) - other.b / Math.cos(other.angle)) /
                 (Math.sin(other.angle - this.angle) / (Math.cos(other.angle) * Math.cos(this.angle)))) *
                 ((Math.sin(other.angle) / Math.cos(other.angle))) + other.b / Math.cos(other.angle)
 
-        /*(-(this.b / Math.cos(this.angle) - other.b / Math.cos(other.angle)) /
-        (Math.sin(this.angle - other.angle) / (Math.cos(this.angle) * Math.cos(other.angle)))) *
-        ((Math.sin(this.angle) / Math.cos(this.angle))) + this.b / Math.cos(this.angle)*/
+
 
         return Point(x, y)
     }
